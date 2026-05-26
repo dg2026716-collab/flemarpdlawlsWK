@@ -17,17 +17,11 @@
 **다음 할 일: 배경을 삽입하고 노래 선정하고 속도 조절하고 누르면 사라지면서 점수 올리게 하기**
 
 ## 2026/5/26 
-**한 일: 배경화며 삽입 밑 밝기 조절, 
+**한 일: 배경화며 삽입 밑 밝기 조절, https://www.youtube.com/watch?v=3QqPl-pBW14&list=RD3QqPl-pBW14&start_radio=1(노래선정), 
 
-**배운 점:
+**배운 점:이미지를 삽입할때 코드에 링크가 안 될 떄 imgur을 통해 사진 링크를 따면 넣는게 가능하다**
 
 **느낀 점:
 
 **다음 할 일:
 
-
-https://devin.aks.ac.kr/image/b4c8054b-57fa-46bb-b557-ec127989dd89?preset=orig
-
-https://blog.kakaocdn.net/dna/H0K7Y/btsIhWaC7bh/AAAAAAAAAAAAAAAAAAAAAPJ-cBRmaGT-3lP5CrYC6n9Qbdib6kkIlzsZMB-hRwYO/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1780239599&allow_ip=&allow_referer=&signature=1e%2F03xzaPi6ZLVaTDvNGu2MEEMU%3D
-
-https://www.sejongking.co.kr/news/photo/202402/1420_10416_4854.jpg
