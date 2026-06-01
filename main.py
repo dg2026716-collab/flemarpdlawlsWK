@@ -1,59 +1,207 @@
 Web VPython 3.2
 
-import random
 from vpython import *
-#scene.camera.pos = vector(0, 0, 3)
-#scene.userzoom = False
-#scene.userspin = False
-#scene.userpan = False
 
+# ======================
+# 화면 설정
+# ======================
 
-point1=ring(pos=vec(-2, 0, 0), axis=vec(1, 0, -7), radius = 0.4, thickness = 0.05, color=color.yellow)
-red_ball=sphere(pos=vec(2,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1b5CHDSqIj4zdUBToIQBdWy6h7z846xWeDZJfIHk1ug&s')
-blue_ball=sphere(pos=vec(2,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg-dVgKP0FqnnHk5nZb6c4JlwiUuytsgrOUGdyiBb2g&s')
-red_ball_2=sphere(pos=vec(6,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1b5CHDSqIj4zdUBToIQBdWy6h7z846xWeDZJfIHk1ug&s')
-blue_ball_2=sphere(pos=vec(7,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg-dVgKP0FqnnHk5nZb6c4JlwiUuytsgrOUGdyiBb2g&s')
-red_ball_3=sphere(pos=vec(8,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1b5CHDSqIj4zdUBToIQBdWy6h7z846xWeDZJfIHk1ug&s')
-blue_ball_3=sphere(pos=vec(9,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg-dVgKP0FqnnHk5nZb6c4JlwiUuytsgrOUGdyiBb2g&s')
-red_ball_4=sphere(pos=vec(10,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1b5CHDSqIj4zdUBToIQBdWy6h7z846xWeDZJfIHk1ug&s')
-blue_ball_4=sphere(pos=vec(11,0,0),size=vec(0.5,0.5,0.5),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg-dVgKP0FqnnHk5nZb6c4JlwiUuytsgrOUGdyiBb2g&s')
+scene.width = 1000
+scene.height = 500
+scene.background = color.black
 
-#다 같은 위치에서 있어야함
+# ======================
+# 배경
+# ======================
 
-ball_list = [red_ball,blue_ball,red_ball_2,blue_ball_2,red_ball_3,blue_ball_3,red_ball_4,blue_ball_4]
+background = box(
+    pos=vec(0,0,-1),
+    size=vec(12,6,0.1),
+    texture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ-vUt2g_4N_8j-pQZhzTXQxarxBJEQnWvsQ&s'
+)
 
+# ======================
+# 판정선
+# ======================
 
+judge = ring(
+    pos=vec(-2,0,0),
+    axis=vec(0,0,1),
+    radius=0.4,
+    thickness=0.05,
+    color=color.yellow
+)
 
+# 레인
 
-blue_ball.velocity=vec(-1,0,0)
-blue_ball_2.velocity=vec(-1,0,0)
-blue_ball_3.velocity=vec(-1,0,0)
-blue_ball_4.velocity=vec(-1,0,0)
+line1 = box(
+    pos=vec(0,1,0),
+    size=vec(10,0.05,0.1),
+    color=color.white
+)
 
-red_ball.velocity=vec(-1,0,0)
-red_ball_2.velocity=vec(-1,0,0)
-red_ball_3.velocity=vec(-1,0,0)
-red_ball_4.velocity=vec(-1,0,0)
-line2=box(pos=vec(0,-1,0),size=vec(6,0.05,0.1))
-line1=box(pos=vec(0,1,0),size=vec(6,0.05,0.1))
+line2 = box(
+    pos=vec(0,-1,0),
+    size=vec(10,0.05,0.1),
+    color=color.white
+)
 
-background=box(pos=vec(0,0,-1),size=vec(8,5,1),texture = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ-vUt2g_4N_8j-pQZhzTXQxarxBJEQnWvsQ&s')
+# ======================
+# 게임 설정
+# ======================
 
-k=keysdown()
-if k=' 'and blue_ball.pos=vec(-2,0,0):
-    dt_b = 0.01
-    while True:
-        rate(100)
-        blue_ball.pos = blue_ball.pos + blue_ball.velocity * dt_b
-    
-    dt_b2 = 0.01
-    while True:
-        rate(100)
-        blue_ball_2.pos = blue_ball_2.pos + blue_ball_2.velocity * dt    
-    
-    
-    
-    
-#if k=' ' and blue_ball.pos=vec(-2,0,0):
-#스페이스 누르고 위치 맞으면 공 삭제,그와 동시에 화면 밖에 공을 생성하고 속도를 0으로 설정한다.
-#개념 구조화해서 가져오자...
+start_x = 6
+judge_x = -2
+
+speed = 2.5
+beat = 0.5
+
+balls = []
+
+# ======================
+# 노트 생성
+# ======================
+
+notes = []
+
+for i in range(200):
+
+    t = i * beat
+
+    if i % 2 == 0:
+        notes.append((t, "red"))
+    else:
+        notes.append((t, "blue"))
+
+# ======================
+# 안내 문구
+# ======================
+
+info = label(
+    pos=vec(0,2,0),
+    text="A = 빨간 공   |   L = 파란 공",
+    box=False,
+    height=20
+)
+
+# ======================
+# 게임 루프
+# ======================
+
+time = 0
+dt = 0.01
+
+note_index = 0
+
+last_a = False
+last_l = False
+
+while True:
+
+    rate(100)
+
+    time += dt
+
+    keys = keysdown()
+
+    # ------------------
+    # 노트 생성
+    # ------------------
+
+    while note_index < len(notes) and time >= notes[note_index][0]:
+
+        note_time, note_color = notes[note_index]
+
+        if note_color == "red":
+
+            b = sphere(
+                pos=vec(start_x,0,0),
+                size=vec(0.5,0.5,0.5),
+                texture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1b5CHDSqIj4zdUBToIQBdWy6h7z846xWeDZJfIHk1ug&s'
+            )
+
+            b.note_color = "red"
+
+        else:
+
+            b = sphere(
+                pos=vec(start_x,0,0),
+                size=vec(0.5,0.5,0.5),
+                texture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg-dVgKP0FqnnHk5nZb6c4JlwiUuytsgrOUGdyiBb2g&s'
+            )
+
+            b.note_color = "blue"
+
+        b.velocity = vec(-speed,0,0)
+
+        balls.append(b)
+
+        note_index += 1
+
+    # ------------------
+    # 공 이동
+    # ------------------
+
+    for b in balls[:]:
+
+        b.pos += b.velocity * dt
+
+        # 화면 밖으로 나가면 제거
+
+        if b.pos.x < -5:
+
+            b.visible = False
+
+            if b in balls:
+                balls.remove(b)
+
+    # ------------------
+    # A키
+    # ------------------
+
+    if 'a' in keys and not last_a:
+
+        target = None
+
+        for b in balls:
+
+            if b.note_color == "red":
+
+                if abs(b.pos.x - judge_x) < 0.6:
+
+                    target = b
+
+                    break
+
+        if target:
+
+            target.visible = False
+
+            balls.remove(target)
+
+    # ------------------
+    # L키
+    # ------------------
+
+    if 'l' in keys and not last_l:
+
+        target = None
+
+        for b in balls:
+
+            if b.note_color == "blue":
+
+                if abs(b.pos.x - judge_x) < 0.6:
+
+                    target = b
+
+                    break
+
+        if target:
+
+            target.visible = False
+
+            balls.remove(target)
+
+    last_a = 'a' in keys
+    last_l = 'l' in keys
