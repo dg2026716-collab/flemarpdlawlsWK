@@ -2,30 +2,28 @@ Web VPython 3.2
 
 from vpython import *
 
-# ======================
-# 화면 설정
-# ======================
+# 화면
+scene.camera.pos = vector(0, 0, 3)
+scene.userzoom = False
+scene.userspin = False
+scene.userpan = False
 
-scene.width = 1000
+scene.width = 1100
 scene.height = 500
 scene.background = color.black
 
-# ======================
 # 배경
-# ======================
-
-background = box(
+box(
     pos=vec(0,0,-1),
     size=vec(12,6,0.1),
-    texture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ-vUt2g_4N_8j-pQZhzTXQxarxBJEQnWvsQ&s'
+    texture='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2288630/4b4ea308e7fdbbfaa59ab3597e2a15f856961b5b/capsule_616x353_koreana.jpg?t=1777500241'
 )
 
-# ======================
 # 판정선
-# ======================
+judge_x = -2
 
-judge = ring(
-    pos=vec(-2,0,0),
+ring(
+    pos=vec(judge_x,0,0),
     axis=vec(0,0,1),
     radius=0.4,
     thickness=0.05,
@@ -33,175 +31,102 @@ judge = ring(
 )
 
 # 레인
+box(pos=vec(0,1,0), size=vec(10,0.05,0.1))
+box(pos=vec(0,-1,0), size=vec(10,0.05,0.1))
 
-line1 = box(
-    pos=vec(0,1,0),
-    size=vec(10,0.05,0.1),
-    color=color.white
-)
-
-line2 = box(
-    pos=vec(0,-1,0),
-    size=vec(10,0.05,0.1),
-    color=color.white
-)
-
-# ======================
-# 게임 설정
-# ======================
-
-start_x = 6
-judge_x = -2
-
+# 설정
 speed = 2.5
 beat = 0.5
+start_x = 6
 
 balls = []
 
-# ======================
-# 노트 생성
-# ======================
-
+# 노트 목록
 notes = []
 
-for i in range(200):
-
-    t = i * beat
+for i in range(100):
 
     if i % 2 == 0:
-        notes.append((t, "red"))
+        notes.append((i*beat, "red"))
     else:
-        notes.append((t, "blue"))
+        notes.append((i*beat, "blue"))
 
-# ======================
-# 안내 문구
-# ======================
-
-info = label(
+# 안내문
+label(
     pos=vec(0,2,0),
-    text="A = 빨간 공   |   L = 파란 공",
-    box=False,
-    height=20
+    text="A = 빨강   L = 파랑",
+    box=False
 )
 
-# ======================
-# 게임 루프
-# ======================
-
+# 게임 변수
 time = 0
 dt = 0.01
-
 note_index = 0
-
-last_a = False
-last_l = False
 
 while True:
 
     rate(100)
-
     time += dt
 
-    keys = keysdown()
-
-    # ------------------
     # 노트 생성
-    # ------------------
-
-    while note_index < len(notes) and time >= notes[note_index][0]:
+    if note_index < len(notes):
 
         note_time, note_color = notes[note_index]
 
-        if note_color == "red":
+        if time >= note_time:
 
-            b = sphere(
+            img = ""
+
+            if note_color == "red":
+                img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1b5CHDSqIj4zdUBToIQBdWy6h7z846xWeDZJfIHk1ug&s"
+            else:
+                img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg-dVgKP0FqnnHk5nZb6c4JlwiUuytsgrOUGdyiBb2g&s"
+
+            ball = sphere(
                 pos=vec(start_x,0,0),
-                size=vec(0.5,0.5,0.5),
-                texture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1b5CHDSqIj4zdUBToIQBdWy6h7z846xWeDZJfIHk1ug&s'
+                radius=0.25,
+                texture=img
             )
 
-            b.note_color = "red"
+            ball.note_color = note_color
+            balls.append(ball)
 
-        else:
+            note_index += 1
 
-            b = sphere(
-                pos=vec(start_x,0,0),
-                size=vec(0.5,0.5,0.5),
-                texture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUg-dVgKP0FqnnHk5nZb6c4JlwiUuytsgrOUGdyiBb2g&s'
-            )
-
-            b.note_color = "blue"
-
-        b.velocity = vec(-speed,0,0)
-
-        balls.append(b)
-
-        note_index += 1
-
-    # ------------------
     # 공 이동
-    # ------------------
+    for ball in balls[:]:
 
-    for b in balls[:]:
+        ball.pos.x -= speed * dt
 
-        b.pos += b.velocity * dt
+        if ball.pos.x < -5:
 
-        # 화면 밖으로 나가면 제거
+            ball.visible = False
+            balls.remove(ball)
 
-        if b.pos.x < -5:
+    keys = keysdown()
 
-            b.visible = False
-
-            if b in balls:
-                balls.remove(b)
-
-    # ------------------
     # A키
-    # ------------------
+    if 'a' in keys:
 
-    if 'a' in keys and not last_a:
+        for ball in balls[:]:
 
-        target = None
+            if ball.note_color == "red":
 
-        for b in balls:
+                if abs(ball.pos.x - judge_x) < 0.6:
 
-            if b.note_color == "red":
-
-                if abs(b.pos.x - judge_x) < 0.6:
-
-                    target = b
-
+                    ball.visible = False
+                    balls.remove(ball)
                     break
 
-        if target:
-
-            target.visible = False
-
-            balls.remove(target)
-
-    # ------------------
     # L키
-    # ------------------
+    if 'l' in keys:
 
-    if 'l' in keys and not last_l:
+        for ball in balls[:]:
 
-        target = None
+            if ball.note_color == "blue":
 
-        for b in balls:
+                if abs(ball.pos.x - judge_x) < 0.6:
 
-            if b.note_color == "blue":
-
-                if abs(b.pos.x - judge_x) < 0.6:
-
-                    target = b
-
+                    ball.visible = False
+                    balls.remove(ball)
                     break
-
-        if target:
-
-            target.visible = False
-
-            balls.remove(target)
-
-    last_a = 'a' in keys
-    last_l = 'l' in keys
