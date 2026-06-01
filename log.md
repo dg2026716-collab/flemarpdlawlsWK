@@ -33,3 +33,6 @@
 **느낀 점:공의 수를 많이 뽑아야해서 어렵다**
 
 **다음 할 일:노래에 맞춰 공 개수 뽑고 노래 넣고 완성하기**
+
+## 2026/6/2
+**한 일:https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2288630/4b4ea308e7fdbbfaa59ab3597e2a15f856961b5b/capsule_616x353_koreana.jpg?t=1777500241
