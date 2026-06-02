@@ -35,8 +35,8 @@ box(pos=vec(0,1,0), size=vec(10,0.05,0.1))
 box(pos=vec(0,-1,0), size=vec(10,0.05,0.1))
 
 # 설정
-speed = 2.5
-beat = 0.5
+speed = 3.5
+beat = 0.1
 start_x = 6
 
 balls = []
@@ -59,13 +59,16 @@ label(
 )
 
 # 게임 변수
+#scoreboard = 0
 time = 0
 dt = 0.01
 note_index = 0
 
 while True:
 
+
     rate(100)
+    #print("scoreboard")
     time += dt
 
     # 노트 생성
@@ -130,3 +133,11 @@ while True:
                     ball.visible = False
                     balls.remove(ball)
                     break
+                
+                
+    #if 'a' in keys and sing.pos=(judge_x,0,0):
+        #scoreboard+=1
+        
+        
+    #if 'l' in keys and sing.pos=(judge_x,0,0):
+        #scoreboard+=1
