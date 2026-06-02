@@ -35,4 +35,10 @@
 **다음 할 일:노래에 맞춰 공 개수 뽑고 노래 넣고 완성하기**
 
 ## 2026/6/2
-**한 일:https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2288630/4b4ea308e7fdbbfaa59ab3597e2a15f856961b5b/capsule_616x353_koreana.jpg?t=1777500241
+**한 일: 배경 사진 바꾸끼(https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2288630/4b4ea308e7fdbbfaa59ab3597e2a15f856961b5b/capsule_616x353_koreana.jpg?t=1777500241), 공 속도 조절, 공 간격 조절, 점수판 제작**
+
+**배운 점: 반복문 활용법**
+
+**느낀 점: 반복문이 어렵다**
+
+**다음 한 일: 구체적으로 공 배치**
