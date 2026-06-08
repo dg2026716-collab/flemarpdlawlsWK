@@ -20,17 +20,18 @@ box(
 )
 
 # 판정선
-judge_x = -2
+judge_x = -3.3
 
 ring(
-    pos=vec(judge_x,0,0),
+    pos=vec(-2.7,0,0),
     axis=vec(0,0,1),
-    radius=0.4,
+    radius=0.2,
     thickness=0.05,
     color=color.yellow
 )
 
-# 레인
+
+# 선
 box(pos=vec(0,1,0), size=vec(10,0.05,0.1))
 box(pos=vec(0,-1,0), size=vec(10,0.05,0.1))
 
@@ -40,6 +41,7 @@ beat = 0.1
 start_x = 6
 
 balls = []
+#빈 리스트 생성
 
 # 노트 목록
 notes = []
@@ -68,7 +70,6 @@ while True:
 
 
     rate(100)
-    #print("scoreboard")
     time += dt
 
     # 노트 생성
@@ -134,10 +135,3 @@ while True:
                     balls.remove(ball)
                     break
                 
-                
-    #if 'a' in keys and sing.pos=(judge_x,0,0):
-        #scoreboard+=1
-        
-        
-    #if 'l' in keys and sing.pos=(judge_x,0,0):
-        #scoreboard+=1
