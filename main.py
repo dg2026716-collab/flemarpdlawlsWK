@@ -61,7 +61,6 @@ label(
 )
 
 # 게임 변수
-#scoreboard = 0
 time = 0
 dt = 0.01
 note_index = 0
@@ -69,7 +68,7 @@ note_index = 0
 while True:
 
 
-    rate(100)
+    rate(50)
     time += dt
 
     # 노트 생성
@@ -135,3 +134,35 @@ while True:
                     balls.remove(ball)
                     break
                 
+                
+                
+    score=0 
+    score2=0
+    if 'a' in keys:
+
+        for ball in balls[:]:
+
+            if ball.note_color == "red":
+                
+                if abs(ball.pos.x - judge_x) < 0.6:
+                    
+                    score=score+1
+                    
+                    
+    if 'l' in keys:
+
+        for ball in balls[:]:
+
+            if ball.note_color == "blue":
+
+                if abs(ball.pos.x - judge_x) < 0.6:
+                    
+                    score2=score2+1
+
+#text(text='score\n:', align='center', color=color.white,pos=vec())      
+#        label2(
+#    pos=vec(0,1,3),
+#    text="점수",
+#)
+
+
