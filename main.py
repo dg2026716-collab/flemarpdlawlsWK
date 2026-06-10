@@ -5,13 +5,16 @@ from vpython import *
 # 화면
 scene.camera.pos = vector(0, 0, 3)
 scene.userzoom = False
+#확대
 scene.userspin = False
+#회전 막음
 scene.userpan = False
-
+#마우스 금지
 scene.width = 1100
 scene.height = 500
+#카메라 크기 설정
 scene.background = color.black
-
+#배경 뒷 색 검은색
 # 배경
 box(
     pos=vec(0,0,-1),
@@ -47,10 +50,12 @@ balls = []
 notes = []
 
 for i in range(100):
-
+#100반복
     if i % 2 == 0:
+        #짝수일떄
         notes.append((i*beat, "red"))
     else:
+        #홀수
         notes.append((i*beat, "blue"))
 
 # 안내문
@@ -62,20 +67,22 @@ label(
 
 # 게임 변수
 time = 0
+#시간
 dt = 0.01
+#프레임 단위
 note_index = 0
-
+#노트 요소
 while True:
-
+#무한 반복
 
     rate(50)
     time += dt
 
     # 노트 생성
     if note_index < len(notes):
-
+#아직 생성 안된 노트가 있으면
         note_time, note_color = notes[note_index]
-
+#추가
         if time >= note_time:
 
             img = ""
@@ -136,33 +143,4 @@ while True:
                 
                 
                 
-    score=0 
-    score2=0
-    if 'a' in keys:
-
-        for ball in balls[:]:
-
-            if ball.note_color == "red":
-                
-                if abs(ball.pos.x - judge_x) < 0.6:
-                    
-                    score=score+1
-                    
-                    
-    if 'l' in keys:
-
-        for ball in balls[:]:
-
-            if ball.note_color == "blue":
-
-                if abs(ball.pos.x - judge_x) < 0.6:
-                    
-                    score2=score2+1
-
-#text(text='score\n:', align='center', color=color.white,pos=vec())      
-#        label2(
-#    pos=vec(0,1,3),
-#    text="점수",
-#)
-
 
