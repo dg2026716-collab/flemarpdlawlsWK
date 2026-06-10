@@ -52,3 +52,6 @@
 
 **다음 할 일:마무리 짓고 검사받기+스코어 + 코딩 검토**
 스코어는 이후 작성 예정
+
+
+https://www.glowscript.org/#/user/dg2026716/folder/MyPrograms/program/%EC%84%A4%EB%AA%85%EB%B3%B8/edit
