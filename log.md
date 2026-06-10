@@ -54,4 +54,3 @@
 스코어는 이후 작성 예정
 
 
-https://www.glowscript.org/#/user/dg2026716/folder/MyPrograms/program/%EC%84%A4%EB%AA%85%EB%B3%B8/edit
